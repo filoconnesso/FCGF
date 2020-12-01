@@ -17,8 +17,8 @@
   Arduino UNO Wi-Fi Rev.2
 ********************************************************************
   License : https://creativecommons.org/licenses/by-nc-sa/4.0/
-  Italian Documentation : https://www.filoconnesso.it/downloads/fcgf-it/ by Mirko Pacioni, Edoardo Sassi, Manuel Penna
-  English Documentation : https://www.filoconnesso.it/downloads/fcgf-en/ by Edoardo Sassi
+  Italian Documentation : https://www.filoconnesso.it/fcgf-it/ by Mirko Pacioni, Edoardo Sassi, Manuel Penna
+  English Documentation : https://www.filoconnesso.it/fcgf-en/ by Edoardo Sassi
 */
 
 #ifndef FCGF_H
@@ -373,5 +373,4 @@ public:
     }
   }
 };
-
 #endif
