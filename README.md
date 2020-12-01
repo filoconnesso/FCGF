@@ -1,8 +1,8 @@
 # Google Form Library by Filo Connesso
-License Here : http://creativecommons.org/licenses/by-nc-sa/4.0/
-Documentation Here : https://www.filoconnesso.it/fcgm-it/ (Italian)
-Documentation Here : https://www.filoconnesso.it/fcgm-en/ (English) //old version, coming soon
-New Simple ToolKit : https://www.filoconnesso.it/developers/FCGFToolKit/
+1. License : GNU General Public License v3.0
+2. Italian Documentation Here : https://www.filoconnesso.it/fcgm-it/
+3. English Documentation Here (old version, the new version coming soon) : https://www.filoconnesso.it/fcgm-en/
+4. New Simple ToolKit : https://www.filoconnesso.it/developers/FCGFToolKit/
 # Changelog 0.0.4 : 
 1. Added support for Arduino UNO Wi-Fi Rev.2
 2. Fixed stability issues with Google server connection
@@ -23,5 +23,4 @@ Serial.println(new); //1,5
 1. Now you can send special symbols (e.g. | \! "£ $% & / () =? ^ * + [] {} -_;:,. <>)
 2. Callback feature added.
 3. Fixed minor problems.
-# Share this contents with original creator reference
-# Thanks for use
+# Thanks for using FCGF

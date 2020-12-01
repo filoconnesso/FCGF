@@ -16,7 +16,7 @@
   ESP8266 (ESP-12)
   Arduino UNO Wi-Fi Rev.2
 ********************************************************************
-  License : https://creativecommons.org/licenses/by-nc-sa/4.0/
+  License : GNU General Public License v3.0
   Italian Documentation : https://www.filoconnesso.it/fcgf-it/ by Mirko Pacioni, Edoardo Sassi, Manuel Penna
   English Documentation : https://www.filoconnesso.it/fcgf-en/ by Edoardo Sassi
 */
