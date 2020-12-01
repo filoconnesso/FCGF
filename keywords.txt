@@ -1,0 +1,26 @@
+###########################################
+# Syntax Coloring Map For FCGM
+###########################################
+
+###########################################
+# Datatypes (KEYWORD1)
+###########################################
+
+FCGF	KEYWORD1
+GoogleForm	KEYWORD1
+FCGF_SUBMIT_CALLBACK	KEYWORD1
+FCGF_PRINT	KEYWORD1
+
+###########################################
+# Methods and Functions (KEYWORD2)
+###########################################
+
+dummyBegin	KEYWORD2
+beginWiFi	KEYWORD2
+beginGSM	KEYWORD2
+commaForDot	KEYWORD2
+submit	KEYWORD2
+counter		KEYWORD2
+delayMinute		KEYWORD2
+setLanguage	KEYWORD2
+setWebAgent	KEYWORD2
