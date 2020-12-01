@@ -23,4 +23,4 @@ Serial.println(new); //1,5
 1. Now you can send special symbols (e.g. | \! "£ $% & / () =? ^ * + [] {} -_;:,. <>)
 2. Callback feature added.
 3. Fixed minor problems.
-# Thanks for using FCGF
+# Thanks for using FCGF!
