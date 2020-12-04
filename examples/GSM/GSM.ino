@@ -1,13 +1,14 @@
 /*
-   GSM Example for FCGF Library (Google Form for all Wi-Fi Boards and Arduino MKR GSM 1400)
+   GSM Example for FCGF Library (Arduino MKR GSM 1400)
    Documentation here :
    https://www.filoconnesso.it/fcgf-it/ (italian)
    https://www.filoconnesso.it/fcgf-en/ (english)
    Online ToolKit :
    https://www.filoconnesso.it/developers/FCGFToolKit/
-   Thank you for use and share with original creator reference
+   Thanks for using!
    By Filo Connesso https://www.filoconnesso.it
-   License : http://creativecommons.org/licenses/by-nc-sa/4.0/
+   License : GPL 3.0 https://github.com/filoconnesso/FCGF/blob/main/LICENSE
+   Example writted by Mirko Pacioni
 */
 
 //Include library
@@ -31,16 +32,26 @@ String myform_values[] = {};
 
 void setup()
 {
+  //Disable/Enable Serial debug
+  FCGF_DEBUG = true;
+
   //Start hardware serial
   Serial.begin(9600);
+
+  //Wait for native usb connection
+  while(!Serial);
+
   //Start GSM and Secure client for your specific board and inizialize Google Form Lib
   gf.beginGSM(your_apn, your_pin, your_user, your_password);
+
   //Submit data to Google Form
   gf.submit(myform_privateid, myform_inputs, myform_values, num_of_inputs, submit_delay);
-  //Finish code
+
+  //End setup
 }
 
 void loop()
 {
-  //loop code
+
+  //Put your loop code
 }

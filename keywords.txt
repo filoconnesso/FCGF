@@ -10,6 +10,7 @@ FCGF	KEYWORD1
 GoogleForm	KEYWORD1
 FCGF_SUBMIT_CALLBACK	KEYWORD1
 FCGF_PRINT	KEYWORD1
+FCGF_DEBUG	KEYWORD1
 
 ###########################################
 # Methods and Functions (KEYWORD2)

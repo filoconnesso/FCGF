@@ -1,12 +1,12 @@
 /*
   Google Form Utility for Wi-Fi Boards and Arduino MRK GSM 1400
   Powered by Filo Connesso - Created by Mirko Pacioni
-  Contributed by Ubi De Feo
-  For Arduino IDE Boards - 23/02/2020
+  Contributed by Ubi De Feo, Edoardo Sassi and Manuel Penna
+  For Arduino IDE Boards - Created 23/02/2020 - Updated 04/12/2020
 ********************************************************************
   Tested Boards :
   Wroom32
-  ESP32 DevKit V1
+  ESP32 DevKit V1n
   NodeMCU (0.9)
   Wemos D1 Mini
   ESP01
@@ -15,16 +15,19 @@
   Arduino Nano 33 Iot
   ESP8266 (ESP-12)
   Arduino UNO Wi-Fi Rev.2
+  Arduino Oplà IoT Kit (Arduino MKR Wi-Fi 1010)
 ********************************************************************
-  License : GNU General Public License v3.0
+  License : GPL 3.0 https://github.com/filoconnesso/FCGF/blob/main/LICENSE
   Italian Documentation : https://www.filoconnesso.it/fcgf-it/ by Mirko Pacioni, Edoardo Sassi, Manuel Penna
   English Documentation : https://www.filoconnesso.it/fcgf-en/ by Edoardo Sassi
 */
 
 #ifndef FCGF_H
 #define FCGF_H
+
 //Include Arduino.h Library
 #include <Arduino.h>
+
 //Include Wi-Fi library for current board
 #if defined(ARDUINO_SAMD_MKRWIFI1010) || defined(ARDUINO_SAMD_NANO_33_IOT) || defined(ARDUINO_AVR_UNO_WIFI_REV2)
 //For Arduino MKR Wi-Fi 1010, Arduino NANO 33 IoT and Arduino UNO Wi-Fi Rev.2
@@ -32,6 +35,7 @@
 #include "WiFiSSLClient.h"
 WiFiSSLClient client;
 #elif defined(ARDUINO_SAMD_MKRGSM1400)
+
 //For Arduino MKR GSM 1400
 #include "MKRGSM.h"
 GSMSSLClient client;
@@ -39,11 +43,13 @@ GSMModem modem;
 GPRS gprs;
 GSM gsmAccess;
 #elif defined(ESP32) || defined(ARDUINO_ARCH_ESP32)
+
 //For ESP32
 #include "WiFi.h"
 #include "WiFiClientSecure.h"
 WiFiClientSecure client;
 #elif defined(ESP8266)
+
 //For ESP8266
 #include "ESP8266WiFi.h"
 #include "WiFiClientSecure.h"
@@ -79,6 +85,9 @@ long FCGF_FAILED_CONNECTIONS = 0;
 //begin bool
 bool FCGF_BEGIN = false;
 bool FCGF_GSM_CONNECTED = false;
+
+//debug bool
+bool FCGF_DEBUG = false;
 
 //url encoding function
 String curValuePostData;
@@ -144,24 +153,30 @@ public:
 #if defined(ESP8266) || defined(ESP32) || defined(ARDUINO_ARCH_ESP32)
   void dummyBegin()
   {
-    FCGF_PRINT.println("*****FCGF LIBRARY - FILO CONNESSO GOOGLE FORM LIBRARY*****");
-    FCGF_PRINT.print("Version : " + String(FCGF_VERSION));
-    FCGF_PRINT.println();
-    FCGF_PRINT.print("Connecting to wifi...");
+    if (FCGF_DEBUG)
+    {
+      FCGF_PRINT.println("*****FCGF LIBRARY - FILO CONNESSO GOOGLE FORM LIBRARY*****");
+      FCGF_PRINT.print("Version : " + String(FCGF_VERSION));
+      FCGF_PRINT.println();
+      FCGF_PRINT.print("Connecting to wifi...");
+    }
     while (WiFi.status() != FCGF_WIFI_CONNECTED_STATUS)
     {
       delay(200);
     }
-    FCGF_PRINT.print("[OK]");
-    FCGF_PRINT.println();
-    FCGF_PRINT.print("Board type : ");
+    if (FCGF_DEBUG)
+    {
+      FCGF_PRINT.print("[OK]");
+      FCGF_PRINT.println();
+      FCGF_PRINT.print("Board type : ");
 #if defined(ESP8266)
-    FCGF_PRINT.print("ESP8266 Board");
+      FCGF_PRINT.print("ESP8266 Board");
 #elif defined(ESP32) || defined(ARDUINO_ARCH_ESP32)
-    FCGF_PRINT.print("ESP32 Board");
+      FCGF_PRINT.print("ESP32 Board");
 #endif
-    FCGF_PRINT.println();
-    FCGF_PRINT.print("Board IP Address : " + FCGF_IP_TO_STRING(WiFi.localIP()));
+      FCGF_PRINT.println();
+      FCGF_PRINT.println("Board IP Address : " + FCGF_IP_TO_STRING(WiFi.localIP()));
+    }
 #if defined(ESP8266)
     client.setInsecure(); //for ESP8266
 #endif
@@ -175,30 +190,36 @@ public:
   void beginWiFi(const char *wifiName, const char *wifiPassword)
   {
     WiFi.begin(wifiName, wifiPassword);
-    FCGF_PRINT.println("*****FCGF LIBRARY - FILO CONNESSO GOOGLE FORM LIBRARY*****");
-    FCGF_PRINT.print("Version : " + String(FCGF_VERSION));
-    FCGF_PRINT.println();
-    FCGF_PRINT.print("Connecting to wifi...");
+    if (FCGF_DEBUG)
+    {
+      FCGF_PRINT.println("*****FCGF LIBRARY - FILO CONNESSO GOOGLE FORM LIBRARY*****");
+      FCGF_PRINT.print("Version : " + String(FCGF_VERSION));
+      FCGF_PRINT.println();
+      FCGF_PRINT.print("Connecting to wifi...");
+    }
     while (WiFi.status() != FCGF_WIFI_CONNECTED_STATUS)
     {
       delay(200);
     }
-    FCGF_PRINT.print("[OK]");
-    FCGF_PRINT.println();
-    FCGF_PRINT.print("Board type : ");
+    if (FCGF_DEBUG)
+    {
+      FCGF_PRINT.print("[OK]");
+      FCGF_PRINT.println();
+      FCGF_PRINT.print("Board type : ");
 #if defined(ARDUINO_SAMD_MKRWIFI1010)
-    FCGF_PRINT.print("Arduino MKR Wi-Fi 1010");
+      FCGF_PRINT.print("Arduino MKR Wi-Fi 1010");
 #elif defined(ARDUINO_SAMD_NANO_33_IOT)
-    FCGF_PRINT.print("Arduino Nano 33 Iot");
+      FCGF_PRINT.print("Arduino Nano 33 Iot");
 #elif defined(ARDUINO_AVR_UNO_WIFI_REV2)
-    FCGF_PRINT.print("Arduino UNO Wi-Fi Rev.2");
+      FCGF_PRINT.print("Arduino UNO Wi-Fi Rev.2");
 #elif defined(ESP8266)
-    FCGF_PRINT.print("ESP8266 Board");
+      FCGF_PRINT.print("ESP8266 Board");
 #elif defined(ESP32) || defined(ARDUINO_ARCH_ESP32)
-    FCGF_PRINT.print("ESP32 Board");
+      FCGF_PRINT.print("ESP32 Board");
 #endif
-    FCGF_PRINT.println();
-    FCGF_PRINT.print("Board IP Address : " + FCGF_IP_TO_STRING(WiFi.localIP()));
+      FCGF_PRINT.println();
+      FCGF_PRINT.println("Board IP Address : " + FCGF_IP_TO_STRING(WiFi.localIP()));
+    }
 #if defined(ESP8266)
     client.setInsecure(); //for ESP8266
 #endif
@@ -211,34 +232,46 @@ public:
 #if defined(ARDUINO_SAMD_MKRGSM1400)
   void beginGSM(const char *apn, const char *pin, const char *user, const char *password)
   {
-    FCGF_PRINT.println("*****FCGF LIBRARY - FILO CONNESSO GOOGLE FORM LIBRARY*****");
-    FCGF_PRINT.print("Version : " + String(FCGF_VERSION));
-    FCGF_PRINT.println();
-    FCGF_PRINT.print("Start GSM modem...");
+    if (FCGF_DEBUG)
+    {
+      FCGF_PRINT.println("*****FCGF LIBRARY - FILO CONNESSO GOOGLE FORM LIBRARY*****");
+      FCGF_PRINT.print("Version : " + String(FCGF_VERSION));
+      FCGF_PRINT.println();
+      FCGF_PRINT.print("Start GSM modem...");
+    }
     if (modem.begin())
     {
-      FCGF_PRINT.print("[OK]");
+      if (FCGF_DEBUG)
+      {
+        FCGF_PRINT.print("[OK]");
+      }
     }
     else
     {
-      FCGF_PRINT.print("[FAILED]");
+      if (FCGF_DEBUG)
+      {
+        FCGF_PRINT.print("[FAILED]");
+      }
     }
-    FCGF_PRINT.println();
-    FCGF_PRINT.print("Board type : ");
+    if (FCGF_DEBUG)
+    {
+      FCGF_PRINT.println();
+      FCGF_PRINT.print("Board type : ");
 #if defined(ARDUINO_SAMD_MKRGSM1400)
-    FCGF_PRINT.print("Arduino MKR GSM 1400");
+      FCGF_PRINT.print("Arduino MKR GSM 1400");
 #endif
-    FCGF_PRINT.println();
-    if (modem.getIMEI() != NULL)
-    {
-      FCGF_PRINT.print("Board IMEI Address : " + String(modem.getIMEI()));
+      FCGF_PRINT.println();
+      if (modem.getIMEI() != NULL)
+      {
+        FCGF_PRINT.print("Board IMEI Address : " + String(modem.getIMEI()));
+      }
+      else
+      {
+        FCGF_PRINT.print("Board IMEI Address error!");
+      }
+      FCGF_PRINT.println();
+      FCGF_PRINT.print("Connecting to GSM...");
     }
-    else
-    {
-      FCGF_PRINT.print("Board IMEI Address error!");
-    }
-    FCGF_PRINT.println();
-    FCGF_PRINT.print("Connecting to GSM...");
     while (!FCGF_GSM_CONNECTED)
     {
       if ((gsmAccess.begin(pin) == GSM_READY) && (gprs.attachGPRS(apn, user, password) == GPRS_READY))
@@ -246,7 +279,11 @@ public:
         FCGF_GSM_CONNECTED = true;
       }
     }
-    FCGF_PRINT.print("[OK]");
+    if (FCGF_DEBUG)
+    {
+      FCGF_PRINT.print("[OK]");
+      FCGF_PRINT.println();
+    }
     FCGF_BEGIN = true;
   }
 #endif
@@ -260,8 +297,11 @@ public:
       {
         if (client.connect(FCGF_GOOGLE_HOST, FCGF_HTTPS_PORT))
         {
-          FCGF_PRINT.println();
-          FCGF_PRINT.print("Submit data to " + moduleId + "...");
+          if (FCGF_DEBUG)
+          {
+            FCGF_PRINT.println();
+            FCGF_PRINT.print("Submit data to " + moduleId + "...");
+          }
           numOfInputs--;
           String urlPost = "/forms/d/" + moduleId + "/formResponse";
           String urlPostData = "submit=Submit&ifq";
@@ -289,21 +329,30 @@ public:
           String header = client.readStringUntil('\n');
           if (header.indexOf("200") > 0)
           {
-            FCGF_PRINT.print("[OK]");
+            if (FCGF_DEBUG)
+            {
+              FCGF_PRINT.print("[OK]");
+            }
             FCGF_SUBMIT_CALLBACK = true;
             FCGF_SUCCESSFUL_SUBMITIONS++;
           }
           else if (header.indexOf("400") > 0 || header.indexOf("404") > 0 || header.indexOf("500") > 0)
           {
-            FCGF_PRINT.print("[FAILED]");
+            if (FCGF_DEBUG)
+            {
+              FCGF_PRINT.print("[FAILED]");
+            }
             FCGF_SUBMIT_CALLBACK = false;
             FCGF_FAILED_SUBMISSIONS++;
           }
         }
         else
         {
-          FCGF_PRINT.println();
-          FCGF_PRINT.print("#HOST UNAVAILABLE");
+          if (FCGF_DEBUG)
+          {
+            FCGF_PRINT.println();
+            FCGF_PRINT.print("#HOST UNAVAILABLE");
+          }
           FCGF_SUBMIT_CALLBACK = false;
           FCGF_FAILED_CONNECTIONS++;
         }

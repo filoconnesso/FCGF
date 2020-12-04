@@ -7,6 +7,8 @@
 1. Added support for Arduino UNO Wi-Fi Rev.2
 2. Fixed stability issues with Google server connection
 3. Fixed an issue that prevented the connection to Google if the submit delay with a value greater than 0 was set
+4. Added example for Arduino Oplà IoT Kit
+5. Added feature to enable or disable serial debugging with the FCGF_DEBUG variable (true or false).
 # Changelog 0.0.3 : 
 1. Added support for Arduino MRK GSM 1400 and Arduino Nano 33 Iot
 2. Now it is possible to submit data with a delay that does not block the LOOP cycle.  
