@@ -1,6 +1,6 @@
 # Google Form Library by Filo Connesso
 1. License : GNU General Public License v3.0
-2. Italian Documentation Here : https://www.filoconnesso.it/fcgm-it/
+2. Italian Documentation Here : https://www.filoconnesso.it/fcgf-it/
 3. English Documentation Here (old version, the new version coming soon) : https://www.filoconnesso.it/fcgm-en/
 4. New Simple ToolKit : https://www.filoconnesso.it/developers/FCGFToolKit/
 # Changelog 0.0.4 : 
